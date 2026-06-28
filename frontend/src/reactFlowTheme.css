@@ -1,0 +1,222 @@
+/* Styles React Flow canvas, nodes, handles, edges, controls, and minimap. */
+
+.canvas-shell {
+  min-height: 0;
+}
+
+.pipeline-flow {
+  --xy-background-color: #fffefb;
+  --xy-node-background-color-default: transparent;
+  --xy-node-border-default: 0;
+  --xy-edge-stroke-default: rgba(84, 88, 95, 0.66);
+  --xy-edge-stroke-width-default: 2;
+  --xy-handle-background-color-default: #fffefb;
+  --xy-handle-border-color-default: rgba(15, 19, 26, 0.42);
+  width: 100%;
+  height: 100%;
+  background: var(--xy-background-color);
+}
+
+.pipeline-flow .react-flow__pane {
+  cursor: default;
+}
+
+.pipeline-flow .react-flow__node {
+  font-family: var(--font-sans);
+}
+
+.pipeline-flow .react-flow__node:focus {
+  outline: none;
+}
+
+.pipeline-node {
+  width: 240px;
+  overflow: visible;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 254, 251, 0.98);
+  color: var(--color-text);
+  box-shadow: var(--shadow-node);
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.pipeline-flow .react-flow__node.selectable:hover .pipeline-node {
+  transform: translateY(-1px);
+  border-color: var(--color-border-strong);
+}
+
+.pipeline-flow .react-flow__node.selected .pipeline-node {
+  border-color: var(--tone-color);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--tone-color) 45%, transparent),
+    0 20px 52px rgba(15, 19, 26, 0.16);
+}
+
+.pipeline-flow .react-flow__node:focus-visible .pipeline-node {
+  border-color: var(--tone-color);
+  box-shadow:
+    0 0 0 4px var(--color-focus),
+    0 20px 52px rgba(15, 19, 26, 0.16);
+}
+
+.pipeline-node__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 11px var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: var(--tone-soft);
+}
+
+.pipeline-node__accent {
+  flex: 0 0 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--tone-color);
+  box-shadow: 0 0 18px var(--tone-color);
+}
+
+.pipeline-node__title {
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pipeline-node__body {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+}
+
+.pipeline-node__description {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.node-field {
+  display: grid;
+  gap: 5px;
+}
+
+.node-field span {
+  color: var(--color-text-soft);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.node-field input,
+.node-field select {
+  width: 100%;
+  height: 34px;
+  min-width: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: rgba(251, 249, 244, 0.96);
+  color: var(--color-text);
+  outline: none;
+  padding: 0 10px;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.node-field input:focus,
+.node-field select:focus {
+  border-color: var(--tone-color);
+  background: var(--color-page);
+  box-shadow: 0 0 0 3px var(--color-focus);
+}
+
+.pipeline-flow .react-flow__handle {
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--xy-handle-border-color-default);
+  background: var(--xy-handle-background-color-default);
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.pipeline-flow .react-flow__handle:hover,
+.pipeline-flow .react-flow__handle.connectionindicator:focus {
+  transform: scale(1.25);
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.pipeline-flow .react-flow__edge-path {
+  stroke: rgba(84, 88, 95, 0.74);
+  stroke-width: 2;
+}
+
+.pipeline-flow .react-flow__edge.selected .react-flow__edge-path,
+.pipeline-flow .react-flow__edge:hover .react-flow__edge-path {
+  stroke: var(--color-accent);
+}
+
+.pipeline-flow .react-flow__controls,
+.pipeline-flow .react-flow__minimap {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-glass);
+  box-shadow: 0 16px 40px rgba(15, 19, 26, 0.12);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.pipeline-flow .react-flow__controls-button {
+  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text);
+  fill: var(--color-text);
+}
+
+.pipeline-flow .react-flow__controls-button:hover {
+  background: rgba(91, 72, 36, 0.08);
+}
+
+.pipeline-flow .react-flow__controls-button:focus-visible {
+  outline: none;
+  background: rgba(91, 72, 36, 0.14);
+  box-shadow: inset 0 0 0 2px var(--color-accent);
+}
+
+@media (max-width: 760px) {
+  .canvas-shell {
+    min-height: 390px;
+  }
+
+  .pipeline-flow .react-flow__minimap {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pipeline-node,
+  .pipeline-flow .react-flow__handle,
+  .pipeline-flow .react-flow__edge-path {
+    transition-duration: 1ms !important;
+  }
+
+  .pipeline-flow .react-flow__node.selectable:hover .pipeline-node,
+  .pipeline-flow .react-flow__handle:hover {
+    transform: none;
+  }
+
+  .pipeline-flow .react-flow__edge.animated .react-flow__edge-path {
+    animation: none;
+  }
+}

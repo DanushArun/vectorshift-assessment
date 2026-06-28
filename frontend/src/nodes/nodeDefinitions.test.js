@@ -17,3 +17,7 @@ test('test_node_definitions_when_loaded_include_demo_nodes', () => {
     expect.arrayContaining(['prompt', 'knowledgeBase', 'filter', 'transform', 'apiRequest'])
   );
 });
+
+test('test_node_definitions_when_loaded_include_visual_tones', () => {
+  expect(nodeDefinitions.every((node) => Boolean(node.tone))).toBe(true);
+});

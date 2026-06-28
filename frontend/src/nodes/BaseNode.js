@@ -65,15 +65,19 @@ export const BaseNode = ({ id, data, definition }) => {
   const updateField = (fieldName, fieldValue) => {
     updateNodeField(id, fieldName, fieldValue);
   };
+  const tone = definition.tone || 'neutral';
 
   return (
-    <div className="pipeline-node">
+    <div className={`pipeline-node pipeline-node--${tone}`}>
       <NodeHandles id={id} handles={definition.handles} />
       <div className="pipeline-node__header">
-        <span>{definition.label}</span>
+        <span className="pipeline-node__accent" aria-hidden="true" />
+        <span className="pipeline-node__title">{definition.label}</span>
       </div>
       <div className="pipeline-node__body">
-        {definition.description && <p>{definition.description}</p>}
+        {definition.description && (
+          <p className="pipeline-node__description">{definition.description}</p>
+        )}
         {definition.fields.map((field) => (
           <NodeField
             key={field.name}

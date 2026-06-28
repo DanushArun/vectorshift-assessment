@@ -4,11 +4,20 @@ import { SubmitButton } from './submit';
 
 function App() {
   return (
-    <div>
-      <PipelineToolbar />
-      <PipelineUI />
-      <SubmitButton />
-    </div>
+    <main className="app-shell">
+      <header className="app-header">
+        <div className="app-brand">
+          <h1 aria-label="VectorShift">
+            Vector<span className="app-brand__accent">Shift</span>
+          </h1>
+        </div>
+      </header>
+      <section className="builder-workspace" aria-label="Pipeline builder">
+        <PipelineToolbar />
+        <PipelineUI />
+        <SubmitButton />
+      </section>
+    </main>
   );
 }
 

@@ -4,6 +4,7 @@ export const nodeDefinitions = [
   {
     type: 'customInput',
     label: 'Input',
+    tone: 'input',
     description: 'Pipeline input',
     fields: [
       {
@@ -26,6 +27,7 @@ export const nodeDefinitions = [
   {
     type: 'llm',
     label: 'LLM',
+    tone: 'ai',
     description: 'Generates a response from system and prompt inputs.',
     fields: [],
     handles: [
@@ -37,6 +39,7 @@ export const nodeDefinitions = [
   {
     type: 'customOutput',
     label: 'Output',
+    tone: 'output',
     description: 'Pipeline output',
     fields: [
       {
@@ -59,6 +62,7 @@ export const nodeDefinitions = [
   {
     type: 'text',
     label: 'Text',
+    tone: 'data',
     description: 'Template text for a prompt.',
     fields: [{ name: 'text', label: 'Text', kind: 'text', defaultValue: '{{input}}' }],
     handles: [{ type: 'source', position: 'right', id: 'output' }],
@@ -66,6 +70,7 @@ export const nodeDefinitions = [
   {
     type: 'prompt',
     label: 'Prompt',
+    tone: 'ai',
     description: 'Combines instructions and context.',
     fields: [
       {
@@ -83,6 +88,7 @@ export const nodeDefinitions = [
   {
     type: 'knowledgeBase',
     label: 'Knowledge Base',
+    tone: 'data',
     description: 'Retrieves relevant context for a query.',
     fields: [{ name: 'collection', label: 'Collection', kind: 'text', defaultValue: 'docs' }],
     handles: [
@@ -93,6 +99,7 @@ export const nodeDefinitions = [
   {
     type: 'filter',
     label: 'Filter',
+    tone: 'logic',
     description: 'Routes data that matches a condition.',
     fields: [
       {
@@ -111,6 +118,7 @@ export const nodeDefinitions = [
   {
     type: 'transform',
     label: 'Transform',
+    tone: 'logic',
     description: 'Changes data into another format.',
     fields: [
       {
@@ -129,6 +137,7 @@ export const nodeDefinitions = [
   {
     type: 'apiRequest',
     label: 'API Request',
+    tone: 'integration',
     description: 'Sends a payload to an external endpoint.',
     fields: [
       {

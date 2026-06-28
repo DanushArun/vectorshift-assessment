@@ -1,33 +1,33 @@
 // draggableNode.js
 
-export const DraggableNode = ({ type, label }) => {
-    const onDragStart = (event, nodeType) => {
-      const appData = { nodeType }
-      event.target.style.cursor = 'grabbing';
-      event.dataTransfer.setData('application/reactflow', JSON.stringify(appData));
-      event.dataTransfer.effectAllowed = 'move';
-    };
-  
-    return (
-      <div
-        className={type}
-        onDragStart={(event) => onDragStart(event, type)}
-        onDragEnd={(event) => (event.target.style.cursor = 'grab')}
-        style={{ 
-          cursor: 'grab', 
-          minWidth: '80px', 
-          height: '60px',
-          display: 'flex', 
-          alignItems: 'center', 
-          borderRadius: '8px',
-          backgroundColor: '#1C2536',
-          justifyContent: 'center', 
-          flexDirection: 'column'
-        }} 
-        draggable
-      >
-          <span style={{ color: '#fff' }}>{label}</span>
-      </div>
-    );
+const toneLabels = {
+  input: 'Input',
+  ai: 'AI',
+  output: 'Output',
+  logic: 'Logic',
+  data: 'Data',
+  integration: 'API',
+};
+
+export const DraggableNode = ({ type, label, tone = 'neutral' }) => {
+  const onDragStart = (event, nodeType) => {
+    const appData = { nodeType };
+
+    event.dataTransfer.setData('application/reactflow', JSON.stringify(appData));
+    event.dataTransfer.effectAllowed = 'move';
   };
-  
+
+  return (
+    <div
+      aria-label={`Drag ${label} node to canvas`}
+      className={`node-tile node-tile--${tone}`}
+      onDragStart={(event) => onDragStart(event, type)}
+      draggable
+      role="listitem"
+      tabIndex={0}
+    >
+      <span className="node-tile__label">{label}</span>
+      <span className="node-tile__meta">{toneLabels[tone] || 'Node'}</span>
+    </div>
+  );
+};

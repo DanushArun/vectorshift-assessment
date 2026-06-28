@@ -1,0 +1,73 @@
+/* Styles the isolated example flow switcher in the submit bar. */
+
+.example-switch {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.example-switch__label {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.example-switch__buttons {
+  display: flex;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.example-button {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 800;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.example-button:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.example-button--active {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-page);
+}
+
+.example-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-focus);
+}
+
+@media (max-width: 760px) {
+  .example-switch {
+    justify-content: space-between;
+  }
+
+  .example-switch__buttons {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .example-button:hover {
+    transform: none;
+  }
+}
