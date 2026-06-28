@@ -44,3 +44,28 @@ test('test_example_flow_state_when_summary_loaded_separates_parallel_nodes', () 
 
   expect(yGap).toBeGreaterThanOrEqual(240);
 });
+
+test('test_example_flow_state_when_api_loaded_includes_cycle_for_dag_false_demo', () => {
+  const state = createExampleFlowState('api');
+  const edgePairs = state.edges.map((edge) => `${edge.source}->${edge.target}`);
+
+  expect(edgePairs).toEqual(expect.arrayContaining([
+    'apiRequest-1->transform-1',
+    'transform-1->apiRequest-1',
+  ]));
+});
+
+test('test_example_flow_state_when_knowledge_loaded_fits_default_canvas', () => {
+  const state = createExampleFlowState('knowledge');
+  const xPositions = state.nodes.map((node) => node.position.x);
+
+  expect(Math.max(...xPositions) - Math.min(...xPositions)).toBeLessThanOrEqual(1280);
+});
+
+test('test_example_flow_state_when_api_loaded_uses_readable_cycle_layout', () => {
+  const state = createExampleFlowState('api');
+
+  expect(getNode(state, 'apiRequest-1').position).toEqual({ x: 420, y: 260 });
+  expect(getNode(state, 'transform-1').position).toEqual({ x: 820, y: 60 });
+  expect(getNode(state, 'customOutput-1').position).toEqual({ x: 1200, y: 40 });
+});

@@ -149,6 +149,12 @@ const connectApiFlow = () => [
   createEdge({
     source: 'transform-1',
     sourceHandle: 'output',
+    target: 'apiRequest-1',
+    targetHandle: 'payload',
+  }),
+  createEdge({
+    source: 'transform-1',
+    sourceHandle: 'output',
     target: 'customOutput-1',
     targetHandle: 'value',
   }),
@@ -187,11 +193,11 @@ const summaryNodes = [
 
 const knowledgeNodes = [
   createNode({ type: 'customInput', x: 40, y: 220 }),
-  createNode({ type: 'knowledgeBase', x: 420, y: 190 }),
-  createNode({ type: 'text', x: 420, y: 430, data: { text: 'Use retrieved context only' } }),
-  createNode({ type: 'prompt', x: 800, y: 190 }),
-  createNode({ type: 'llm', x: 1180, y: 230 }),
-  createNode({ type: 'customOutput', x: 1560, y: 230 }),
+  createNode({ type: 'knowledgeBase', x: 360, y: 190 }),
+  createNode({ type: 'text', x: 360, y: 430, data: { text: 'Use retrieved context only' } }),
+  createNode({ type: 'prompt', x: 680, y: 190 }),
+  createNode({ type: 'llm', x: 960, y: 230 }),
+  createNode({ type: 'customOutput', x: 1240, y: 230 }),
 ];
 
 const routingNodes = [
@@ -203,10 +209,10 @@ const routingNodes = [
 ];
 
 const apiNodes = [
-  createNode({ type: 'customInput', x: 40, y: 200 }),
-  createNode({ type: 'apiRequest', x: 420, y: 180 }),
-  createNode({ type: 'transform', x: 820, y: 180 }),
-  createNode({ type: 'customOutput', x: 1200, y: 180 }),
+  createNode({ type: 'customInput', x: 40, y: 260 }),
+  createNode({ type: 'apiRequest', x: 420, y: 260 }),
+  createNode({ type: 'transform', x: 820, y: 60 }),
+  createNode({ type: 'customOutput', x: 1200, y: 40 }),
 ];
 
 export const exampleFlows = [
