@@ -1,6 +1,6 @@
 // Owns pipeline graph state for React Flow.
 
-import { create } from 'zustand';
+import { createWithEqualityFn } from 'zustand/traditional';
 import {
   addEdge,
   applyNodeChanges,
@@ -11,7 +11,7 @@ import { createExampleFlowState } from './examples/exampleFlows';
 
 const initialFlow = createExampleFlowState();
 
-export const useStore = create((set, get) => ({
+export const useStore = createWithEqualityFn((set, get) => ({
   nodes: initialFlow.nodes,
   edges: initialFlow.edges,
   nodeIDs: initialFlow.nodeIDs,

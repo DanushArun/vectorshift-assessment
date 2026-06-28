@@ -31,7 +31,7 @@ test('test_base_node_when_text_is_long_applies_dynamic_width', () => {
   const text = 'a much longer text value that should widen the rendered node';
   render(<BaseNode id="text-1" data={{ text }} definition={getNodeDefinition('text')} />);
 
-  expect(screen.getByRole('textbox', { name: 'Text' }).closest('.pipeline-node').style.width).toBe(
+  expect(screen.getByRole('group', { name: 'Text node' }).style.width).toBe(
     `${getTextNodeDimensions(text).width}px`
   );
 });

@@ -1,4 +1,6 @@
 .DS_Store
 .venv/
 __pycache__
-*.md
+ASSESSMENT_PROGRESS.md
+PART-1.md
+PART-2.md

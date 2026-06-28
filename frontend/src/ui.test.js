@@ -35,6 +35,18 @@ jest.mock('reactflow', () => ({
   },
 }));
 
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
+test('test_pipeline_ui_when_rendered_does_not_emit_store_warnings', () => {
+  const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+  render(<PipelineUI />);
+
+  expect(warnSpy).not.toHaveBeenCalled();
+});
+
 test('test_pipeline_ui_when_fit_view_runs_caps_default_zoom', () => {
   render(<PipelineUI />);
 

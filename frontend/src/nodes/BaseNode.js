@@ -128,7 +128,9 @@ export const BaseNode = ({ id, data, definition }) => {
 
   return (
     <div
+      aria-label={`${definition.label} node`}
       className={`pipeline-node pipeline-node--${tone}`}
+      role="group"
       style={getNodeStyle(definition, id, data)}
     >
       <NodeHandles id={id} handles={handles} />
