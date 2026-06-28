@@ -11,3 +11,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.pipeline-node {
+  width: 220px;
+  border: 1px solid #1f2937;
+  background: #fff;
+  color: #111827;
+  font-size: 13px;
+}
+
+.pipeline-node__header {
+  border-bottom: 1px solid #d1d5db;
+  font-weight: 700;
+  padding: 8px 10px;
+}
+
+.pipeline-node__body {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.pipeline-node__body p {
+  margin: 0;
+  color: #4b5563;
+}
+
+.node-field {
+  display: grid;
+  gap: 4px;
+}
+
+.node-field input,
+.node-field select {
+  border: 1px solid #cbd5e1;
+  padding: 4px 6px;
+}

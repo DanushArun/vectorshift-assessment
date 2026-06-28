@@ -6,21 +6,13 @@ import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
 import { useStore } from './store';
 import { shallow } from 'zustand/shallow';
-import { InputNode } from './nodes/inputNode';
-import { LLMNode } from './nodes/llmNode';
-import { OutputNode } from './nodes/outputNode';
-import { TextNode } from './nodes/textNode';
+import { getNodeDefinition } from './nodes/nodeDefinitions';
+import { nodeTypes } from './nodes/nodeRegistry';
 
 import 'reactflow/dist/style.css';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
-const nodeTypes = {
-  customInput: InputNode,
-  llm: LLMNode,
-  customOutput: OutputNode,
-  text: TextNode,
-};
 
 const selector = (state) => ({
   nodes: state.nodes,
@@ -46,9 +38,19 @@ export const PipelineUI = () => {
     } = useStore(selector, shallow);
 
     const getInitNodeData = (nodeID, type) => {
-      let nodeData = { id: nodeID, nodeType: `${type}` };
-      return nodeData;
-    }
+      const definition = getNodeDefinition(type);
+      const fieldData = Object.fromEntries(
+        (definition?.fields || []).map((field) => {
+          const value = field.defaultFromId
+            ? nodeID.replace(`${field.defaultFromId}-`, field.prefix || '')
+            : field.defaultValue || '';
+
+          return [field.name, value];
+        })
+      );
+
+      return { id: nodeID, nodeType: type, ...fieldData };
+    };
 
     const onDrop = useCallback(
         (event) => {
@@ -80,7 +82,7 @@ export const PipelineUI = () => {
             addNode(newNode);
           }
         },
-        [reactFlowInstance]
+        [reactFlowInstance, getNodeID, addNode]
     );
 
     const onDragOver = useCallback((event) => {
