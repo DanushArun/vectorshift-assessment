@@ -64,7 +64,7 @@ export const nodeDefinitions = [
     label: 'Text',
     tone: 'data',
     description: 'Template text for a prompt.',
-    fields: [{ name: 'text', label: 'Text', kind: 'text', defaultValue: '{{input}}' }],
+    fields: [{ name: 'text', label: 'Text', kind: 'textarea', defaultValue: '{{input}}' }],
     handles: [{ type: 'source', position: 'right', id: 'output' }],
   },
   {
