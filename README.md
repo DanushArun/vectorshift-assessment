@@ -1,90 +1,67 @@
-# VectorShift Frontend Assessment
+# VectorShift Pipeline Builder Assessment
 
-Pipeline builder assessment for VectorShift. The app includes reusable React Flow
-nodes, VectorShift-styled canvas UI, dynamic Text node handles, example flows,
-and a FastAPI backend endpoint that returns node count, edge count, and whether
-the submitted graph is a DAG.
+A React Flow editor backed by a small FastAPI graph-analysis endpoint.
+Build a pipeline, add node connections, then submit it to count nodes and edges and check for
+cycles.
+This is an assessment implementation, not a pipeline execution service.
 
-## Prerequisites
+## What is built
 
-- Node.js and npm
-- Python 3.10+
+- Reusable node components backed by centralized node definitions.
+- Example flows, canvas controls, minimap and drag/drop node creation.
+- Text-node resizing and variable-based input handles.
+- Submission feedback from the backend's directed-acyclic-graph check.
 
-## Install
+```mermaid
+flowchart LR
+    Editor[React Flow canvas] --> Payload[Nodes and edges]
+    Payload --> API[POST /pipelines/parse]
+    API --> Graph[Kahn topological traversal]
+    Graph --> Result[Counts and cycle result]
+```
+
+## Start the two services
+
+Use Python 3.10+ and a Node version compatible with the frontend lockfile.
+
+```bash
+git clone https://github.com/DanushArun/vectorshift-assessment.git
+cd vectorshift-assessment
+python3 -m venv backend/.venv
+backend/.venv/bin/pip install -r backend/requirements.txt
+backend/.venv/bin/uvicorn main:app --app-dir backend --reload --port 8000
+```
+
+In another terminal, from the repository root:
 
 ```bash
 cd frontend
-npm install
-```
-
-```bash
-cd ../backend
-python3 -m venv .venv
-. .venv/bin/activate
-pip install -r requirements.txt
-```
-
-## Run
-
-Start the backend:
-
-```bash
-cd backend
-. .venv/bin/activate
-uvicorn main:app --reload
-```
-
-Start the frontend in a second terminal:
-
-```bash
-cd frontend
+npm ci
 npm start
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3000`. The API allows the localhost frontend origins.
 
-## Test And Build
+## API contract
 
-Backend:
+`POST /pipelines/parse` accepts `nodes` with string `id` values and `edges` with
+`source` and `target`. It returns `num_nodes`, `num_edges` and Boolean `is_dag`.
+The counts describe the supplied arrays. Graph traversal also includes endpoints referenced
+by edges, even when those IDs are absent from the nodes array.
+
+## Verification and structure
 
 ```bash
 backend/.venv/bin/python -m unittest discover backend
-```
-
-Frontend:
-
-```bash
 cd frontend
 npm test -- --watchAll=false
 npm run build
 ```
 
-## API Contract
+- [backend/main.py](backend/main.py): payload models, graph traversal and routes.
+- [backend/test_main.py](backend/test_main.py): graph behavior tests.
+- [frontend/src/nodes](frontend/src/nodes): node abstraction and text-node logic.
+- [frontend/src/submit.js](frontend/src/submit.js): submission integration.
 
-`POST http://localhost:8000/pipelines/parse`
-
-Request:
-
-```json
-{
-  "nodes": [{ "id": "input-1" }, { "id": "output-1" }],
-  "edges": [{ "source": "input-1", "target": "output-1" }]
-}
-```
-
-Response:
-
-```json
-{
-  "num_nodes": 2,
-  "num_edges": 1,
-  "is_dag": true
-}
-```
-
-## Assessment Coverage
-
-- Part 1: reusable node abstraction with centralized node definitions.
-- Part 2: polished builder UI, example flows, minimap, controls, and branding.
-- Part 3: dynamic Text node resizing and variable-based handles.
-- Part 4: frontend submit integration with backend DAG parsing.
+Source, tests and package scripts were inspected for this README; the full suite and frontend
+build were not rerun. A DAG result checks graph structure, not executable node semantics.
